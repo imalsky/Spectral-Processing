@@ -48,7 +48,7 @@ double two_stream(int NLAYER, int kmin, double *w0_array, double *g0_array, \
 
   // Scattering and atmosphere parameters
   double TEMPS[NLAYER - kmin];
-  double TAUCS[NLAYER - kmin];
+  double TAUCS[NLAYER - kmin + 1];
   double TAULS[NLAYER - kmin];
 
   // How to generate the matrix from the toon paper
@@ -160,12 +160,18 @@ double two_stream(int NLAYER, int kmin, double *w0_array, double *g0_array, \
 
     DTAUS[J] = dtau_array[J+kmin];
     TAULS[J] = dtau_array[J+kmin];
-    TAUCS[J] = tau_array[J+kmin];
+    //TAUCS[J] = tau_array[J+kmin];
 
     DIRECT_QUADRATURE[J]  = mu_0 * PI * FLUX_SURFACE_QUADRATURE * exp(-1.0 * (TAUCS[J] + TAULS[J]) / mu_0);
     DIRECT_HEMISPHERIC[J] = 0.0;
   }
 
+  TAUCS[0] = 0.0;
+  for (J=0; J < NEW_NLAYER; J++)
+  {
+      TAUCS[J+1]=TAUCS[J]+TAULS[J];
+  }
+  
   // Calculate the intensity at the top of the atmosphere
   temp_val_1 = (2.0 * h_constant * (NU * NU * NU)) / (CLIGHT * CLIGHT);
   temp_val_2 = exp(h_constant * NU / (bolz_constant * TEMPS[0])) - 1.0;
@@ -175,8 +181,6 @@ double two_stream(int NLAYER, int kmin, double *w0_array, double *g0_array, \
   temp_val_1 = (2.0 * h_constant * (NU * NU * NU)) / (CLIGHT * CLIGHT);
   temp_val_2 = exp(h_constant * NU / (bolz_constant * TEMPS[NEW_NLAYER-1])) - 1.0;
   BB_BOTTOM_OF_ATM = temp_val_1 * (1.0 / temp_val_2);
-
-
 
 
   //***************************************************************************************
@@ -554,5 +558,6 @@ double two_stream(int NLAYER, int kmin, double *w0_array, double *g0_array, \
   }
 
   TOTAL_FLUX = (HEMISPHERIC_SOURCE_FNC[0] / (2 * PI)) + (fabs(QUADRATURE_TWO_STREAM[0]) / (4.0 * PI));
+
   return TOTAL_FLUX;
 }

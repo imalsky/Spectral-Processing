@@ -175,7 +175,7 @@ output_paths = []
 inclination_strs = []
 phase_strs = []
 
-
+"""
 # Convert the fort files to the correct format
 if USE_FORT_FILES == True:
     convert_fort_files.convert_to_correct_format('', planet_name)
@@ -201,7 +201,7 @@ else:
 # If you already have the Final planet file creates you can commend out run_grid and double planet file
 run_grid.run_all_grid(planet_name, phases, inclinations, system_obliquity, NTAU, NLAT, NLON, grid_lat_min, grid_lat_max, grid_lon_min, grid_lon_max, ONLY_PHASE)
 
-
+"""
 # Get all the files that you want to run
 input_paths, inclination_strs, phase_strs = get_run_lists(phases, inclinations)
 
