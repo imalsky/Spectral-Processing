@@ -10,13 +10,13 @@ Defines input values and files for 3-D emission spectra
 /* I/O SETTINGS. */
 
 /* File names */
-#define OUTPUT_PREFIX "OUT/Spec_0_PS-LOW-G-CLEAR-TEST_phase_0.0_inc_0.00.00.0"      /* output name */
-#define T_P_3D_FILE "DATA/init_UPS-LOW-G-CLEAR-TEST_phase_0.0_inc_0.0.txt"         /* input file */
+#define OUTPUT_PREFIX "OUT/Spec_0_PS-LOW-G-COM-CLOUDY_phase_0.0_inc_0.00.00.0"      /* output name */
+#define T_P_3D_FILE "DATA/init_UPS-LOW-G-COM-CLOUDY_phase_0.0_inc_0.0.txt"         /* input file */
 
 /* Output settings */
 #define N_PHASE 1                          /* Number of phases [96 max; lon grid in increments of 3.75] */
 #define DOPPLER 0                /* 0:Off; 1:On */
-#define CLOUDS 0                           /* 0:Off; 1:On */
+#define CLOUDS 1                           /* 0:Off; 1:On */
 
 /* Grid settings */
 #define NTAU 250                            /* Number of altitude points in grid      */

@@ -19,7 +19,7 @@ system_obliquity = 0
 
 # I recommend leaving these as is
 # The NLAT and NLON can be changed, but these values work well
-INITIAL_NTAU = 65
+INITIAL_NTAU = 50
 NTAU = 250
 
 # Please don't touch these
@@ -29,7 +29,7 @@ NLON = 96
 # Whethere there are clouds
 # 0 is no clouds, 1 is clouds
 # This is also important for filling in the correct number of 0s for the input files
-CLOUDS = 0
+CLOUDS = 1
 
 # 0 is off
 # 1 is everything
@@ -39,18 +39,18 @@ dopplers = [0]
 
 # If you only need to change the phase you can use this knob
 # It skips a lot of steps for the regridding
-ONLY_PHASE     = True
+ONLY_PHASE = True
 
 # If you only have the fort files use this
 # Please don't only have the fort files
 # It requires that the fort files are named according to something particular
 # In the correct directory
-USE_FORT_FILES = True
+USE_FORT_FILES = False
 
 # These are the planet files that you need to run the code
 # So These should be in New_Jups/Planets
 # They should be pretty big files, and don't include the .txt with the names here
-planet_name = 'UPS-LOW-G-CLEAR-TEST'
+planet_name = 'UPS-LOW-G-COM-CLOUDY'
 
 
 # This is specifically for the regridding
@@ -186,11 +186,14 @@ else:
 
 # Regrid the file to constant altitude and the correct number of layers
 altitude_regridding.regrid_gcm_to_constant_alt(CLOUDS, planet_name, NLAT, NLON, INITIAL_NTAU, NLON, NTAU)
+print ("Regridded the planet to constant altitude")
 
 
 # Add the zeros if the initial file doesn't have them
 if CLOUDS == 0:
     add_zeros(planet_name)
+    print ("Added a bunch of zeros because the code assumes the initial file has no clouds")
+    print ("The spectral processing needs the number of columns to be correct")
 else:
     pass
 
