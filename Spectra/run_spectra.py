@@ -13,7 +13,7 @@ import convert_fort_files
 
 # Phases in degrees, inclination in radians (sorry)
 # An inclination of 0 corresponds to edge on
-phases = [0.0]
+phases = [0.0, 30.0]
 inclinations = [0.0]
 system_obliquity = 0
 
@@ -167,7 +167,7 @@ def run_exo(input_paths, inclination_strs, phase_strs, doppler_val):
         os.system('make rt_emission_aerosols.exe') 
         os.system('./rt_emission_aerosols.exe')
 
-        return None
+    return None
 
 
 input_paths = []              
@@ -176,6 +176,7 @@ inclination_strs = []
 phase_strs = []
 
 """
+
 # Convert the fort files to the correct format
 if USE_FORT_FILES == True:
     convert_fort_files.convert_to_correct_format('', planet_name)
@@ -200,12 +201,14 @@ else:
 
 # If you already have the Final planet file creates you can commend out run_grid and double planet file
 run_grid.run_all_grid(planet_name, phases, inclinations, system_obliquity, NTAU, NLAT, NLON, grid_lat_min, grid_lat_max, grid_lon_min, grid_lon_max, ONLY_PHASE)
-
 """
+
 # Get all the files that you want to run
 input_paths, inclination_strs, phase_strs = get_run_lists(phases, inclinations)
 
 
+print ("here!!!!!")
+print (input_paths)
 # If you want to manually set these values you can leave them here
 # Normally they will not affect it, unless you manually set them in two_stream.h
 W0_VALS = [0.0]
