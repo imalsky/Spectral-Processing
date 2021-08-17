@@ -130,9 +130,6 @@ double two_stream(int NLAYER, int kmin, double *w0_array, double *g0_array, \
   // Top layer values short wave
   double QUADRATURE_TWO_STREAM_TOP;
   double QUADRATURE_SOURCE_FNC_TOP;
-  double intensity;
-
-  double test_intensity[NLAYER - kmin];
 
   // The number of layers
   // Sometimes the inputs are bad and the top
@@ -238,6 +235,8 @@ double two_stream(int NLAYER, int kmin, double *w0_array, double *g0_array, \
     J = J + 1;
 
   }
+
+
 
   // HERE ARE THE TOP AND BOTTOM BOUNDARY CONDITIONS AS WELL AS THE
   // BEGINNING OF THE TRIDIAGONAL SOLUTION DDINITIONS. I ASSUME
@@ -382,10 +381,8 @@ double two_stream(int NLAYER, int kmin, double *w0_array, double *g0_array, \
                     SIGMA_2[J] * (exp(-TAULS[J]) + TAULS[J] - 1.0);
   }
 
-
   INTENSITY_UP[NEW_NLAYER-1] = 2.0 * BB_BOTTOM_OF_ATM * EMIS * PI;
-  intensity = 0;
-  test_intensity[NEW_NLAYER-1] = 0;
+
   // Calculate the upward intensity next
   for(Z=1; Z<NEW_NLAYER; Z++)
   {

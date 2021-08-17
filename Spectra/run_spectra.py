@@ -13,7 +13,7 @@ import convert_fort_files
 
 # Phases in degrees, inclination in radians (sorry)
 # An inclination of 0 corresponds to edge on
-phases = [0.0, 30.0]
+phases = [0.0]
 inclinations = [0.0]
 system_obliquity = 0
 
@@ -35,7 +35,7 @@ CLOUDS = 1
 # 1 is everything
 # 2 is Wind only
 # 3 is rotation only
-dopplers = [0]
+dopplers = [1]
 
 # If you only need to change the phase you can use this knob
 # It skips a lot of steps for the regridding

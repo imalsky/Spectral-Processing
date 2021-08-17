@@ -528,7 +528,8 @@ int RT_Emit_3D(double PHASE)
 
 
                         /* Add doppler shift to signal, if turned on */
-                        if(DOPPLER==1){
+                        if(DOPPLER==1)
+                        {
                             u_vel = lint2D(atmos.lon[c], atmos.lon[c+1], atmos.lat[o], atmos.lat[o+1], atmos.vel_ew[o][c][j], atmos.vel_ew[o][c+1][j], atmos.vel_ew[o+1][c][j], atmos.vel_ew[o+1][c+1][j], phi_lon_solid[l][m][j]-PHASE, theta_lat_solid[l][m][j]);
                             v_vel = lint2D(atmos.lon[c], atmos.lon[c+1], atmos.lat[o], atmos.lat[o+1], atmos.vel_ns[o][c][j], atmos.vel_ns[o][c+1][j], atmos.vel_ns[o+1][c][j], atmos.vel_ns[o+1][c+1][j], phi_lon_solid[l][m][j]-PHASE, theta_lat_solid[l][m][j]);
                             w_vel = lint2D(atmos.lon[c], atmos.lon[c+1], atmos.lat[o], atmos.lat[o+1], atmos.vel_ve[o][c][j], atmos.vel_ve[o][c+1][j], atmos.vel_ve[o+1][c][j], atmos.vel_ve[o+1][c+1][j], phi_lon_solid[l][m][j]-PHASE, theta_lat_solid[l][m][j]);     
@@ -748,8 +749,7 @@ int RT_Emit_3D(double PHASE)
             }
         }
         
-        
-        
+
         //Calculate the intensity of emergent rays at each latitude and longitude
         
         // C HARADA -- update for 2stream //
@@ -758,6 +758,7 @@ int RT_Emit_3D(double PHASE)
         good_intensity = 0.0;
 
         //FILE *fptr = fopen("/home/imalsky/Desktop/test.txt", "w");
+
 
         for(l=0; l<NLAT; l++)
         {
@@ -776,10 +777,6 @@ int RT_Emit_3D(double PHASE)
                           kmin = j+1;
                         }
                     }
-
-
-                    kmin = kmin + 5;
-
                     
                     if (kmin >= NTAU)
                     {
@@ -835,7 +832,8 @@ int RT_Emit_3D(double PHASE)
         */
         
 
- 
+
+
         
         /*Calculate the total flux received by us*/
         //FILE *fptr = fopen("/home/imalsky/Desktop/new_1000.txt", "w"); 
