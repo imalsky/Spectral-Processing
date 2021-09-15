@@ -759,7 +759,7 @@ int RT_Emit_3D(double PHASE)
 
         //FILE *fptr = fopen("/home/imalsky/Desktop/test.txt", "w");
 
-
+        /*
         for(l=0; l<NLAT; l++)
         {
             for(m=0; m<NLON; m++)
@@ -799,8 +799,9 @@ int RT_Emit_3D(double PHASE)
         }
         //fclose(fptr);
         
+        */
+
         
-        /*
         // ~~~ THIS IS THE OLD RT ROUTINE ~~~ //
         for(l=0; l<NLAT; l++)
         {
@@ -829,7 +830,7 @@ int RT_Emit_3D(double PHASE)
                 }
             }
         }
-        */
+        
         
 
 

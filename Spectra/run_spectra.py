@@ -13,13 +13,13 @@ import convert_fort_files
 
 # Phases in degrees, inclination in radians (sorry)
 # An inclination of 0 corresponds to edge on
-phases = [0.0]
+phases = [22.5]
 inclinations = [0.0]
 system_obliquity = 0
 
 # I recommend leaving these as is
 # The NLAT and NLON can be changed, but these values work well
-INITIAL_NTAU = 50
+INITIAL_NTAU = 65
 NTAU = 250
 
 # Please don't touch these
@@ -29,13 +29,13 @@ NLON = 96
 # Whethere there are clouds
 # 0 is no clouds, 1 is clouds
 # This is also important for filling in the correct number of 0s for the input files
-CLOUDS = 1
+CLOUDS = 0
 
 # 0 is off
 # 1 is everything
 # 2 is Wind only
 # 3 is rotation only
-dopplers = [1]
+dopplers = [0,1]
 
 # If you only need to change the phase you can use this knob
 # It skips a lot of steps for the regridding
@@ -45,12 +45,17 @@ ONLY_PHASE = True
 # Please don't only have the fort files
 # It requires that the fort files are named according to something particular
 # In the correct directory
-USE_FORT_FILES = False
+USE_FORT_FILES = True
+
+# There are low resolution spectra and high resolution spectra that can be created
+# There are somethings that need to be changed in the template inputs file to make this happen
+# If you change the underlying data files these might need to be changed
+high_res = False
 
 # These are the planet files that you need to run the code
 # So These should be in New_Jups/Planets
 # They should be pretty big files, and don't include the .txt with the names here
-planet_name = 'UPS-LOW-G-COM-CLOUDY'
+planet_name = 'Hayley-Tests'
 
 
 # This is specifically for the regridding
@@ -119,7 +124,7 @@ def run_exo(input_paths, inclination_strs, phase_strs, doppler_val):
     # The output paths should be similar to the input paths
     # Minus the .dat file extension and saved to OUT/
     for file_path in input_paths:
-        output_paths.append('OUT/Spec_' + str(doppler_val) + '_' + file_path[11:-4])
+        output_paths.append('OUT/Spec_' + str(doppler_val) + '_' + file_path[10:-4])
 
     # Each Run needs to have a specific input.h file
     # With the correct input and output paths
@@ -153,10 +158,32 @@ def run_exo(input_paths, inclination_strs, phase_strs, doppler_val):
         filedata = filedata.replace("<<NLAT>>", str(NLAT))
         filedata = filedata.replace("<<NLON>>", str(NLON))
 
-
         filedata = filedata.replace("<<W0_VAL>>", str(W0_VAL))
         filedata = filedata.replace("<<G0_VAL>>", str(G0_VAL))
 
+        # This is the part that changes the low-res vs high res
+        if high_res == True:
+            filedata = filedata.replace("<<num_pressure_points>>", "17")
+
+            filedata = filedata.replace("<<CHEM_FILE>>", "\"DATA/eos_solar_doppler.dat\"")
+            filedata = filedata.replace("<<CH4_FILE>>",  "\"DATA/opacCH4_hires.dat\"")
+            filedata = filedata.replace("<<CO2_FILE>>",  "\"DATA/opacCO2_hires.dat\"")
+            filedata = filedata.replace("<<CO_FILE>>",   "\"DATA/opacCO_hires.dat\"")
+            filedata = filedata.replace("<<H2O_FILE>>",  "\"DATA/opacH2O_hires.dat\"")
+            filedata = filedata.replace("<<NH3_FILE>>",  "\"DATA/opacNH3_hires.dat\"")
+            filedata = filedata.replace("<<O2_FILE >>",  "\"DATA/opacO2_hires.dat\"")
+            filedata = filedata.replace("<<O3_FILE>>",   "\"DATA/opacO3_hires.dat\"")
+        else:
+            filedata = filedata.replace("<<num_pressure_points>>", "13")
+
+            filedata = filedata.replace("<<CHEM_FILE>>", "\"DATA/eos_solar_doppler_2016_cond.dat\"")
+            filedata = filedata.replace("<<CH4_FILE>>",  "\"DATA/opacCH4.dat\"")
+            filedata = filedata.replace("<<CO2_FILE>>",  "\"DATA/opacCO2.dat\"")
+            filedata = filedata.replace("<<CO_FILE>>",   "\"DATA/opacCO.dat\"")
+            filedata = filedata.replace("<<H2O_FILE>>",  "\"DATA/opacH2O.dat\"")
+            filedata = filedata.replace("<<NH3_FILE>>",  "\"DATA/opacNH3.dat\"")
+            filedata = filedata.replace("<<O2_FILE >>",  "\"DATA/opacO2.dat\"")
+            filedata = filedata.replace("<<O3_FILE>>",   "\"DATA/opacO3.dat\"")
 
         # Write the file out again
         with open(inputs_file, 'w') as file:
@@ -175,7 +202,6 @@ output_paths = []
 inclination_strs = []
 phase_strs = []
 
-"""
 
 # Convert the fort files to the correct format
 if USE_FORT_FILES == True:
@@ -201,7 +227,7 @@ else:
 
 # If you already have the Final planet file creates you can commend out run_grid and double planet file
 run_grid.run_all_grid(planet_name, phases, inclinations, system_obliquity, NTAU, NLAT, NLON, grid_lat_min, grid_lat_max, grid_lon_min, grid_lon_max, ONLY_PHASE)
-"""
+
 
 # Get all the files that you want to run
 input_paths, inclination_strs, phase_strs = get_run_lists(phases, inclinations)
