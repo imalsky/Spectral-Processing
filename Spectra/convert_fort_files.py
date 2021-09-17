@@ -14,7 +14,7 @@ from astropy.table import Table,Column
 from scipy.io import readsav
 import os
 
-def convert_to_correct_format(runname, planet_name):
+def convert_to_correct_format(runname, planet_name,INITIAL_NTAU):
     def readfortfiles(path,runname,fort26,fort50,nlay,gasconst,oom,grav,tgr): 
         with open(path+runname+'/'+fort26) as f:
             first_line=f.readline()
@@ -139,7 +139,7 @@ def convert_to_correct_format(runname, planet_name):
     porb=1.81 #orbital period
     surfp=100 #surface pressure, in bars
     oom=7 
-    levs=65 #how many levels in your GCM (specified in params.i)
+    levs=INITIAL_NTAU #how many levels in your GCM (specified in params.i)
     tgr=3000 #temperature at 100 bars 
     grav= 6.83
     gasconst=3523.
@@ -147,14 +147,14 @@ def convert_to_correct_format(runname, planet_name):
 
 
     # Reshape the array to be 2D
-    # It looks like there are 65 levels, 48 lats and 96 lons
-    df = data_26.reshape(65 * 96 * 48, 6)
+    # It looks like there are INITIAL_NTAU levels, 48 lats and 96 lons
+    df = data_26.reshape(levs * 96 * 48, 6)
 
     # Make it a pandas dataframe
     pd_df = pd.DataFrame(df, columns=['lon', 'lat', 'level', 'u', 'v', 'temps'])
 
     # Make the z stuff also a dataframe
-    z_df = pd.DataFrame(z.reshape(65 * 96 * 48, 2), columns=['alt','pressure'])
+    z_df = pd.DataFrame(z.reshape(levs * 96 * 48, 2), columns=['alt','pressure'])
 
 
     # Sort all the values by lat, then lon, then the level

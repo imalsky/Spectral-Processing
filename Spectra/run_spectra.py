@@ -13,13 +13,13 @@ import convert_fort_files
 
 # Phases in degrees, inclination in radians (sorry)
 # An inclination of 0 corresponds to edge on
-phases = [22.5]
+phases = [0.0,180.0]
 inclinations = [0.0]
 system_obliquity = 0
 
 # I recommend leaving these as is
 # The NLAT and NLON can be changed, but these values work well
-INITIAL_NTAU = 65
+INITIAL_NTAU = 50
 NTAU = 250
 
 # Please don't touch these
@@ -35,7 +35,7 @@ CLOUDS = 0
 # 1 is everything
 # 2 is Wind only
 # 3 is rotation only
-dopplers = [0,1]
+dopplers = [0]
 
 # If you only need to change the phase you can use this knob
 # It skips a lot of steps for the regridding
@@ -50,12 +50,12 @@ USE_FORT_FILES = True
 # There are low resolution spectra and high resolution spectra that can be created
 # There are somethings that need to be changed in the template inputs file to make this happen
 # If you change the underlying data files these might need to be changed
-high_res = False
+high_res = True
 
 # These are the planet files that you need to run the code
 # So These should be in New_Jups/Planets
 # They should be pretty big files, and don't include the .txt with the names here
-planet_name = 'Hayley-Tests'
+planet_name = 'Multi-Wavelength'
 
 
 # This is specifically for the regridding
@@ -205,7 +205,7 @@ phase_strs = []
 
 # Convert the fort files to the correct format
 if USE_FORT_FILES == True:
-    convert_fort_files.convert_to_correct_format('', planet_name)
+    convert_fort_files.convert_to_correct_format('', planet_name, INITIAL_NTAU)
     print ("Converted the fort files to the new format")
 else:
     pass
@@ -232,9 +232,6 @@ run_grid.run_all_grid(planet_name, phases, inclinations, system_obliquity, NTAU,
 # Get all the files that you want to run
 input_paths, inclination_strs, phase_strs = get_run_lists(phases, inclinations)
 
-
-print ("here!!!!!")
-print (input_paths)
 # If you want to manually set these values you can leave them here
 # Normally they will not affect it, unless you manually set them in two_stream.h
 W0_VALS = [0.0]
