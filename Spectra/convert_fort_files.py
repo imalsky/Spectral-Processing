@@ -14,7 +14,7 @@ from astropy.table import Table,Column
 from scipy.io import readsav
 import os
 
-def convert_to_correct_format(runname, planet_name,INITIAL_NTAU):
+def convert_to_correct_format(runname, planet_name,INITIAL_NTAU, surfp, oom, tgr, grav, gasconst):
     def readfortfiles(path,runname,fort26,fort50,nlay,gasconst,oom,grav,tgr): 
         with open(path+runname+'/'+fort26) as f:
             first_line=f.readline()
@@ -74,6 +74,8 @@ def convert_to_correct_format(runname, planet_name,INITIAL_NTAU):
         nlev,nlon,nlat,nparam=data_26.shape
         temps=data_26[:,:,:,5]
         lats=data_26[0,0,:,1]
+
+
         #print(lats) starts at 87.5
         #lons=data_26[:,0,0,0]
             # nparam index: 
@@ -135,14 +137,12 @@ def convert_to_correct_format(runname, planet_name,INITIAL_NTAU):
 
 
     path='../GCM-OUTPUT/'
+
+
     runname='' #the actual run name, leave blank if path points already
-    porb=1.81 #orbital period
-    surfp=100 #surface pressure, in bars
-    oom=7 
     levs=INITIAL_NTAU #how many levels in your GCM (specified in params.i)
-    tgr=3000 #temperature at 100 bars 
-    grav= 6.83
-    gasconst=3523.
+
+
     data_26,nlon,nlat,nlev,nparam,z=readfortfiles(path,runname,'fort.2600','fort.5000',levs,gasconst,oom,grav,tgr)
 
 

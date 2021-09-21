@@ -32,17 +32,17 @@ Defines input values and files for 3-D emission spectra
 #define W0_VAL <<W0_VAL>>
 #define G0_VAL <<G0_VAL>>
 
-
 /* Planet parameters */
 #define INPUT_INCLINATION <<inclination>>  /* Planet inclination in radians            */
 #define INPUT_PHASE <<phase>>              /* Planet inclination in degrees           */
-#define G 12.932                             /* Planet surface gravity                 */
-#define R_PLANET 1.287e+08                 /* Planet radius at base of atmosphere      */
+#define G <<GRAVITY_SI>>                             /* Planet surface gravity                 */
 
-#define ORB_SEP 8.901e+09                  // This is some distance
-#define STELLAR_TEMP 6213                // Stellar Blackbody temperature
-#define R_STAR 1.029e+09                    /* Stellar radius                         */
-#define P_ROT  4.6171                        /* Rotation period in days (= P_ORB for tidally locked planet)    */
+#define R_PLANET <<R_PLANET>>                 /* Planet radius at base of atmosphere      */
+#define ORB_SEP <<ORB_SEP>>                  // This is some distance
+#define STELLAR_TEMP <<STELLAR_TEMP>>                // Stellar Blackbody temperature
+#define R_STAR <<R_STAR>>                    /* Stellar radius                         */
+#define P_ROT  <<P_ROT>>                        /* Rotation period in days (= P_ORB for tidally locked planet)    */
+
 #define R_VEL 0.0                          /* Radial Velocity                        */
 #define MU 2.36                            /* Mean molecular weight                  */
 #define FORMAT 2                           /* FORMAT=1 -> small opacity table        */

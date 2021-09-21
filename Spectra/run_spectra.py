@@ -47,6 +47,23 @@ ONLY_PHASE = True
 # In the correct directory
 USE_FORT_FILES = True
 
+# These values are used mostly for the fort files
+# A couple of them are also used for the spectra
+# So make sure all the constants are set correctly
+# Eventually these should be pulled from the fort.7 file
+# Alas, I am lazy, so you have to do it by hand
+surfp=100 #surface pressure, in bars
+oom=7 
+tgr=3000 #temperature at 100 bars 
+grav= 6.83
+gasconst=3523.0
+
+R_PLANET     = 1.287e+08
+ORB_SEP      = 8.901e+09             
+STELLAR_TEMP = 6213 
+R_STAR       = 1.029e+09 
+P_ROT        = 4.6171
+
 # There are low resolution spectra and high resolution spectra that can be created
 # There are somethings that need to be changed in the template inputs file to make this happen
 # If you change the underlying data files these might need to be changed
@@ -56,7 +73,6 @@ high_res = True
 # So These should be in New_Jups/Planets
 # They should be pretty big files, and don't include the .txt with the names here
 planet_name = 'Multi-Wavelength'
-
 
 # This is specifically for the regridding
 # You can change the grid density
@@ -161,6 +177,15 @@ def run_exo(input_paths, inclination_strs, phase_strs, doppler_val):
         filedata = filedata.replace("<<W0_VAL>>", str(W0_VAL))
         filedata = filedata.replace("<<G0_VAL>>", str(G0_VAL))
 
+        filedata = filedata.replace("<<GRAVITY_SI>>", str(grav))
+ 
+        filedata = filedata.replace("<<R_PLANET>>",     str(R_PLANET))
+        filedata = filedata.replace("<<ORB_SEP>>",      str(ORB_SEP))
+        filedata = filedata.replace("<<STELLAR_TEMP>>", str(STELLAR_TEMP))
+        filedata = filedata.replace("<<R_STAR>>",       str(R_STAR))
+        filedata = filedata.replace("<<P_ROT>>",        str(P_ROT))
+        
+
         # This is the part that changes the low-res vs high res
         if high_res == True:
             filedata = filedata.replace("<<num_pressure_points>>", "17")
@@ -203,9 +228,10 @@ inclination_strs = []
 phase_strs = []
 
 
+
 # Convert the fort files to the correct format
 if USE_FORT_FILES == True:
-    convert_fort_files.convert_to_correct_format('', planet_name, INITIAL_NTAU)
+    convert_fort_files.convert_to_correct_format('', planet_name, INITIAL_NTAU, surfp, oom, tgr, grav, gasconst)
     print ("Converted the fort files to the new format")
 else:
     pass
