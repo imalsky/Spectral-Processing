@@ -23,8 +23,8 @@ Defines input values and files for 3-D emission spectra
 #define NLAT  <<NLAT>>                           /* Number of latitude points in 3-D  grid */
 #define NLON  <<NLON>>                           /* Number of longitude points in 3-D grid */
 
-#define NTEMP 30                           /* Number of temperature points in grid   */
-#define NLAMBDA 2598                       /* Number of wavelength points in grid [4616/2598]   */
+#define NTEMP <<num_temperature_points>>                           /* Number of temperature points in grid   */
+#define NLAMBDA <<num_wavelength_points>>                       /* Number of wavelength points in grid [4616/2598]   */
 
 // This is the Npressure for low res
 #define NPRESSURE <<num_pressure_points>>    /* Number of pressure points in grid   [13/17]   */
@@ -50,22 +50,45 @@ Defines input values and files for 3-D emission spectra
 
 /* Aerosol properties (calculated by the Mischenko Mie code) */
 
-
-#define PI0_MgSiO3 0.99
-#define G0_MgSiO3 0.14
-#define QE_MgSiO3 0.07
-
-#define PI0_Fe 0.71
-#define G0_Fe -0.13
-#define QE_Fe 1.25
-
+#define PI0_KCl 0.74
+#define G0_KCl 0.15
+#define QE_KCl 0.12
+#define PI0_ZnS 0.74
+#define G0_ZnS 0.15
+#define QE_ZnS 0.12
+#define PI0_Na2S 0.74
+#define G0_Na2S 0.15
+#define QE_Na2S 0.12
+#define PI0_MnS 0.74
+#define G0_MnS 0.15
+#define QE_MnS 0.12
+#define PI0_Cr 0.74
+#define G0_Cr 0.15
+#define QE_Cr 0.12
+#define PI0_SiO2 0.74
+#define G0_SiO2 0.15
+#define QE_SiO2 0.12
+#define PI0_Mg2SiO4 0.74
+#define G0_Mg2SiO4 0.15
+#define QE_Mg2SiO4 0.12
+#define PI0_VO 0.74
+#define G0_VO 0.15
+#define QE_VO 0.12
+#define PI0_Ni 0.74
+#define G0_Ni 0.15
+#define QE_Ni 0.12
+#define PI0_Fe 0.74
+#define G0_Fe 0.15
+#define QE_Fe 0.12
+#define PI0_CaSiO4 0.74
+#define G0_CaSiO4 0.15
+#define QE_CaSiO4 0.12
+#define PI0_CaTiO3 0.74
+#define G0_CaTiO3 0.15
+#define QE_CaTiO3 0.15
 #define PI0_Al2O3 0.74
 #define G0_Al2O3 0.15
 #define QE_Al2O3 0.12
-
-#define PI0_MnS 0.99
-#define G0_MnS 0.35
-#define QE_MnS 0.56
 
 /* Opacities for spectra */
 #define CHEM_FILE   <<CHEM_FILE>>

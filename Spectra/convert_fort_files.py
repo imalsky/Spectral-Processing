@@ -1,17 +1,5 @@
-from astropy.io import ascii 
 import numpy as np
-import math
-from scipy.io import readsav
-from scipy.interpolate import griddata
-from scipy import interpolate
 import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib.colors as mcolors
-import matplotlib.patches as patches
-import matplotlib as mpl
-from matplotlib.font_manager import FontProperties
-from astropy.table import Table,Column
-from scipy.io import readsav
 import os
 
 def convert_to_correct_format(runname, planet_name,INITIAL_NTAU, surfp, oom, tgr, grav, gasconst):
@@ -39,7 +27,6 @@ def convert_to_correct_format(runname, planet_name,INITIAL_NTAU, surfp, oom, tgr
                     data26[lp,:]=line_pair
                     lp+=1
                 elif l>nlon*nlat*nlev*2.:
-                    #print ('       END OF FILE: DONE')
                     break
                 l+=1
         f.close()
@@ -73,18 +60,6 @@ def convert_to_correct_format(runname, planet_name,INITIAL_NTAU, surfp, oom, tgr
 
         nlev,nlon,nlat,nparam=data_26.shape
         temps=data_26[:,:,:,5]
-        lats=data_26[0,0,:,1]
-
-
-        #print(lats) starts at 87.5
-        #lons=data_26[:,0,0,0]
-            # nparam index: 
-        #      0=lons
-        #      1=lats
-        #      2=levs
-        #      3=u wind
-        #      4=v wind
-        #      5=temps
         
         #get surface pressures
         with open(path+runname+'/'+fort50,'r') as data_50:  #fort_50 long1 lat1 pressure 
@@ -104,8 +79,7 @@ def convert_to_correct_format(runname, planet_name,INITIAL_NTAU, surfp, oom, tgr
                         if acount<96:
                             specificp[bcount][acount]=((float(p[2]))+1)*surfp
                             bcount=bcount+1
-                    
-        #set sigma
+
 
         sigma=np.empty([nlay])*0.0
         if oom>0: #setting up pressure values 
@@ -113,15 +87,11 @@ def convert_to_correct_format(runname, planet_name,INITIAL_NTAU, surfp, oom, tgr
             sigma[nlay-1]=10.**(stp/2.)
             for n in range(nlay-2,-1,-1):
                 sigma[n]=sigma[n+1]*10.**(stp)
+
         p_BAR=sigma*surfp
-        #print(len(p_BAR))
-        #print(p_BAR)
         sp=specificp
 
-        #create array to hold heights
         z=np.zeros((nlat,nlon,nlay,2))#one for z value, one for prssure
-        #print (nlay)
-        #set altitude of the first level (up from base=p0, where T=TGR) #matches idl
         z[:,:,nlay-1,0]=(gasconst/grav) *.5*(temps[nlay-1,:,:].T + tgr) * np.log(surfp/sp/sigma[nlay-1])
         z[:,:,-1,1]=p_BAR[-1]
 
@@ -132,18 +102,17 @@ def convert_to_correct_format(runname, planet_name,INITIAL_NTAU, surfp, oom, tgr
             z[:,:,start,1]=p_BAR[start] 
             start=start - 1
      
-        #print(z[0,1,:]/1e7)
         return data_26,nlon,nlat,nlev,nparam,z
 
 
     path='../GCM-OUTPUT/'
 
 
-    runname='' #the actual run name, leave blank if path points already
-    levs=INITIAL_NTAU #how many levels in your GCM (specified in params.i)
+    levs=INITIAL_NTAU
 
 
-    data_26,nlon,nlat,nlev,nparam,z=readfortfiles(path,runname,'fort.2600','fort.5000',levs,gasconst,oom,grav,tgr)
+    #data_26,nlon,nlat,nlev,nparam,z=readfortfiles(path,runname,'fort.2600','fort.5000',levs,gasconst,oom,grav,tgr)
+    data_26,nlon,nlat,nlev,nparam,z=readfortfiles(path,runname,'fort.26','fort.50',levs,gasconst,oom,grav,tgr)
 
 
     # Reshape the array to be 2D
@@ -156,7 +125,6 @@ def convert_to_correct_format(runname, planet_name,INITIAL_NTAU, surfp, oom, tgr
     # Make the z stuff also a dataframe
     z_df = pd.DataFrame(z.reshape(levs * 96 * 48, 2), columns=['alt','pressure'])
 
-
     # Sort all the values by lat, then lon, then the level
     data = pd_df.sort_values(by=['lat', 'lon', 'level'], axis=0, ascending=[True, True, True])
 
@@ -167,50 +135,16 @@ def convert_to_correct_format(runname, planet_name,INITIAL_NTAU, surfp, oom, tgr
     data = pd.concat([data, z_df], axis=1)
 
     #winds speeds at boundaries are weird
-    data['u'][data['level'] ==1] = 0
-    data['v'][data['level'] ==1] = 0
+    data['u'][data['level'] == 1] = 0
+    data['v'][data['level'] == 1] = 0
 
     data['w'] = 0
-    data['1'] = 0
-    data['2'] = 0
-    data['3'] = 0
-
 
     # Reshuffle the order of the lats and the lons
-    data = data[['lat', 'lon', 'level','alt','pressure', 'temps', 'u', 'v', 'w', '1', '2', '3']]
+    data = data[['lat', 'lon', 'level','alt','pressure', 'temps', 'u', 'v', 'w']]
 
     data = data.sort_values(by=['lat', 'lon', 'level'], axis=0, ascending=[False, True, True])
 
-
     # Save the reformatted data
-    np.savetxt(path + planet_name + '.txt', data.values,
-               fmt='%7.3f %7.3f %2d %12.5E %12.5E %12.5E %12.5E %12.5E %12.5E %12.5E  %1.3f  %1.3f')
-
-
-    def prepend_line(file_name, line):
-        """ Insert given string as a new line at the beginning of a file """
-        # define name of temporary dummy file
-        dummy_file = file_name + '.bak'
-        # open original file in read mode and dummy file in write mode
-        with open(file_name, 'r') as read_obj, open(dummy_file, 'w') as write_obj:
-            # Write given line to the dummy file
-            write_obj.write(line + '\n')
-            # Read lines from original file one by one and append them to the dummy file
-            for line in read_obj:
-                write_obj.write(line)
-        # remove original file
-        os.remove(file_name)
-        # Rename dummy file as the original file
-        os.rename(dummy_file, file_name)
-
-
-    lines = ['Cloud Report for highgclear',
-             'This includes four different cloud species: MnS, Al2O3, Fe, and MgSiO3',
-             'Format is as follows:',
-             'The columns in the latter file are lat , lon , level , altitude(m), pressure(bars) , temp(k) , EW vel(m/s) , NS vel , vert vel , total aerosol tau_lw ,mean_aerosol_g0_lw, mean_aerosol_pi0_lw',
-             '  48   96   50']
-
-    for line in lines[::-1]:
-        prepend_line(path + planet_name + '.txt', line)
-
+    np.savetxt(path + planet_name + '.txt', data.values, fmt='%5.2f %6.2f %3d %9.2E %9.2E %9.2E %9.2E %9.2E %9.2E')
 

@@ -1,3 +1,5 @@
+from tqdm import tqdm
+
 '''
 
 
@@ -45,45 +47,27 @@ NOTE:
 ### ----- INPUTS AND OUTPUTS ----- ###
 
 
-def regrid_gcm_to_constant_alt(CLOUDS, planet_name, NLAT, NLON, NTAU, NLON_new, NTAU_new):
-    old_file = '../GCM-OUTPUT/' + planet_name + '.txt'
-    new_file = '../Planets/'    + planet_name + '.txt'
+def regrid_gcm_to_constant_alt(path, CLOUDS, planet_name, NLAT, NLON, NTAU, NLON_new, NTAU_new):
+    old_file = path + planet_name + '_with_clouds.txt'
+    new_file = '../Planets/'    + planet_name + 'with_clouds.txt'
 
     smoothing = False
 
-    if CLOUDS == 0:
-        NPARAMS = 12
-    else:
-        NPARAMS = 21
-
+    NPARAMS = 48
 
     #########################################
     #			END USER INPUTS				#
     #########################################
 
 
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
-
-
     ### ----- IMPORT LIBRARIES ----- ###
 
 
     import numpy as np
-
-    import matplotlib.pyplot as plt
-
     from scipy import interpolate
-
     from scipy.signal import savgol_filter
 
-
-
-
-
     ### ----- FIND NEW ALTITUDE GRID ----- ###
-
-
     def altitudes(data):
 
     	# data must be an array of dimensions [NLAT x NLON x NTAU x NPARAMS]
@@ -97,6 +81,7 @@ def regrid_gcm_to_constant_alt(CLOUDS, planet_name, NLAT, NLON, NTAU, NLON_new, 
 
 
     	# find highest and lowest altitude
+    	print ("Find the highest and lowest altitudes")
 
     	for i in range(NLAT):
 
@@ -163,8 +148,8 @@ def regrid_gcm_to_constant_alt(CLOUDS, planet_name, NLAT, NLON, NTAU, NLON_new, 
 
 
     	# sort data to match original format (sorry, this is messy and probably not efficient)
-
-    	for i in range(NLAT):
+    	print("Regridding to new number of layers")
+    	for i in tqdm(range(NLAT)):
 
     	    chunk = double_data[int(i * len(double_data) / NLAT) : int((i + 1) * len(double_data) / NLAT)]
 
@@ -190,11 +175,6 @@ def regrid_gcm_to_constant_alt(CLOUDS, planet_name, NLAT, NLON, NTAU, NLON_new, 
         # return doubled data grid
 
     	return double_data
-
-
-
-
-
 
 
     ### ----- LINEAR INTERPOLATION OVER ENTIRE GRID ----- ###
@@ -225,8 +205,6 @@ def regrid_gcm_to_constant_alt(CLOUDS, planet_name, NLAT, NLON, NTAU, NLON_new, 
     			# old altitude grid at this lat, lon
 
     			z_old = data[i][j][:,3]
-
-
 
     			# parameter values on old altitude grid
 
@@ -458,8 +436,8 @@ def regrid_gcm_to_constant_alt(CLOUDS, planet_name, NLAT, NLON, NTAU, NLON_new, 
 
 
     # load data and reshape data into more convenient dimensions
-
-    data = np.loadtxt(old_file, skiprows=5)
+    print ('Old file:', old_file)
+    data = np.loadtxt(old_file)
 
 
     data = data.reshape((NLAT, NLON, NTAU, NPARAMS))
@@ -495,17 +473,14 @@ def regrid_gcm_to_constant_alt(CLOUDS, planet_name, NLAT, NLON, NTAU, NLON_new, 
 
 
     # interpolate pressures onto new grid (logarithmic)
-
     data_new = LogInterp_1d(data, data_new, z_grid, 4)
 
 
     # interpolate temperature onto new grid (linear)
-
     data_new = LInterp_1d(data, data_new, z_grid, 5)
 
 
     # interpolate winds onto new grid (linear)
-
     data_new = LInterp_1d(data, data_new, z_grid, 6)
     data_new = LInterp_1d(data, data_new, z_grid, 7)
     data_new = LInterp_1d(data, data_new, z_grid, 8)
@@ -518,18 +493,71 @@ def regrid_gcm_to_constant_alt(CLOUDS, planet_name, NLAT, NLON, NTAU, NLON_new, 
         data_new = LInterp_1d(data, data_new, z_grid, 10)
         data_new = LInterp_1d(data, data_new, z_grid, 11)
     else:
+		# 1
         data_new = LInterp_1d(data, data_new, z_grid, 9) 
         data_new = LInterp_1d(data, data_new, z_grid, 10)
         data_new = LInterp_1d(data, data_new, z_grid, 11)
+
+		# 2
         data_new = LInterp_1d(data, data_new, z_grid, 12)
         data_new = LInterp_1d(data, data_new, z_grid, 13)
         data_new = LInterp_1d(data, data_new, z_grid, 14)
+
+		# 3
         data_new = LInterp_1d(data, data_new, z_grid, 15)
         data_new = LInterp_1d(data, data_new, z_grid, 16)
         data_new = LInterp_1d(data, data_new, z_grid, 17)
+
+		# 4
         data_new = LInterp_1d(data, data_new, z_grid, 18)
         data_new = LInterp_1d(data, data_new, z_grid, 19)
         data_new = LInterp_1d(data, data_new, z_grid, 20)
+
+		# 5
+        data_new = LInterp_1d(data, data_new, z_grid, 21)
+        data_new = LInterp_1d(data, data_new, z_grid, 22)
+        data_new = LInterp_1d(data, data_new, z_grid, 23)
+
+		# 6
+        data_new = LInterp_1d(data, data_new, z_grid, 24)
+        data_new = LInterp_1d(data, data_new, z_grid, 25)
+        data_new = LInterp_1d(data, data_new, z_grid, 26)
+
+		# 7
+        data_new = LInterp_1d(data, data_new, z_grid, 27)
+        data_new = LInterp_1d(data, data_new, z_grid, 28)
+        data_new = LInterp_1d(data, data_new, z_grid, 29)
+
+		# 8
+        data_new = LInterp_1d(data, data_new, z_grid, 30)
+        data_new = LInterp_1d(data, data_new, z_grid, 31)
+        data_new = LInterp_1d(data, data_new, z_grid, 32)
+
+		# 9
+        data_new = LInterp_1d(data, data_new, z_grid, 33)
+        data_new = LInterp_1d(data, data_new, z_grid, 34)
+        data_new = LInterp_1d(data, data_new, z_grid, 35)
+
+		# 10
+        data_new = LInterp_1d(data, data_new, z_grid, 36)
+        data_new = LInterp_1d(data, data_new, z_grid, 37)
+        data_new = LInterp_1d(data, data_new, z_grid, 38)
+
+		# 11
+        data_new = LInterp_1d(data, data_new, z_grid, 39)
+        data_new = LInterp_1d(data, data_new, z_grid, 40)
+        data_new = LInterp_1d(data, data_new, z_grid, 41)
+
+		# 12
+        data_new = LInterp_1d(data, data_new, z_grid, 42)
+        data_new = LInterp_1d(data, data_new, z_grid, 43)
+        data_new = LInterp_1d(data, data_new, z_grid, 44)
+
+		# 13
+        data_new = LInterp_1d(data, data_new, z_grid, 45)
+        data_new = LInterp_1d(data, data_new, z_grid, 46)
+        data_new = LInterp_1d(data, data_new, z_grid, 47)
+
 
     # lastly, set all altitude grids equal (to new grid) and add lat, lon, level
 
@@ -546,13 +574,8 @@ def regrid_gcm_to_constant_alt(CLOUDS, planet_name, NLAT, NLON, NTAU, NLON_new, 
 
     # double all data, then save to new output file
 
-    if CLOUDS == 0:
-        np.savetxt(new_file, data_new.reshape(NLAT * NLON * NTAU_new, NPARAMS),
-                   fmt='%12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E %12.4E\t')
-
-    else:
-        np.savetxt(new_file, data_new.reshape(NLAT * NLON * NTAU_new, NPARAMS),
-                   fmt='%12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E\t')
+    np.savetxt(new_file, data_new.reshape(NLAT * NLON * NTAU_new, NPARAMS),
+               fmt=' '.join(['%5.2f']*2 + ['%3d']*1 + ['%9.2E']*6 + ['%9.2E']*39 + ['\t']))
     return None
 
 

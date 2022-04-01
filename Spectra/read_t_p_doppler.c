@@ -168,6 +168,219 @@ void ReadTP_3D()
   }
 
 
+
+
+  atmos.aero_sw_tau_5 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.aero_sw_tau_5[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.aero_sw_tau_5[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+  atmos.sw_asym_5 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.sw_asym_5[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.sw_asym_5[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+
+  atmos.sw_pi0_5 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.sw_pi0_5[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.sw_pi0_5[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+
+  atmos.aero_sw_tau_6 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.aero_sw_tau_6[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.aero_sw_tau_6[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+  atmos.sw_asym_6 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.sw_asym_6[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.sw_asym_6[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+
+  atmos.sw_pi0_6 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.sw_pi0_6[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.sw_pi0_6[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+
+  atmos.aero_sw_tau_7 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.aero_sw_tau_7[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.aero_sw_tau_7[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+  atmos.sw_asym_7 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.sw_asym_7[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.sw_asym_7[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+
+  atmos.sw_pi0_7 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.sw_pi0_7[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.sw_pi0_7[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+
+
+  atmos.aero_sw_tau_8 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.aero_sw_tau_8[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.aero_sw_tau_8[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+  atmos.sw_asym_8 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.sw_asym_8[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.sw_asym_8[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+
+  atmos.sw_pi0_8 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.sw_pi0_8[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.sw_pi0_8[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+
+
+
+  atmos.aero_sw_tau_9 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.aero_sw_tau_9[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.aero_sw_tau_9[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+  atmos.sw_asym_9 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.sw_asym_9[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.sw_asym_9[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+
+  atmos.sw_pi0_9 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.sw_pi0_9[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.sw_pi0_9[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+
+
+
+  atmos.aero_sw_tau_10 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.aero_sw_tau_10[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.aero_sw_tau_10[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+  atmos.sw_asym_10 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.sw_asym_10[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.sw_asym_10[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+
+  atmos.sw_pi0_10 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.sw_pi0_10[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.sw_pi0_10[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+
+  atmos.aero_sw_tau_11 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.aero_sw_tau_11[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.aero_sw_tau_11[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+  atmos.sw_asym_11 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.sw_asym_11[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.sw_asym_11[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+
+  atmos.sw_pi0_11 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.sw_pi0_11[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.sw_pi0_11[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+
+  atmos.aero_sw_tau_12 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.aero_sw_tau_12[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.aero_sw_tau_12[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+  atmos.sw_asym_12 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.sw_asym_12[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.sw_asym_12[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+
+  atmos.sw_pi0_12 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.sw_pi0_12[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.sw_pi0_12[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+
+  atmos.aero_sw_tau_13 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.aero_sw_tau_13[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.aero_sw_tau_13[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+  atmos.sw_asym_13 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.sw_asym_13[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.sw_asym_13[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
+
+  atmos.sw_pi0_13 = malloc(NLAT*sizeof(double));
+  for(i=0; i<NLAT; i++){
+      atmos.sw_pi0_13[i] = malloc(NLON*sizeof(double));
+      for(j=0; j<NLON; j++){
+          atmos.sw_pi0_13[i][j] = malloc(NTAU*sizeof(double));
+      }
+  }
   atmos.incident_frac = malloc(NLAT*sizeof(double));
   for(i=0; i<NLAT; i++){
     atmos.incident_frac[i] = malloc(NLON*sizeof(double));
@@ -175,6 +388,9 @@ void ReadTP_3D()
       atmos.incident_frac[i][j] = malloc(NTAU*sizeof(double));
     }
   }
+
+
+
     
     file = fopen(T_P_3D_FILE, "r");
     if(file == NULL){
@@ -187,13 +403,25 @@ void ReadTP_3D()
             for(k=0; k<NTAU; k++)
             {
                 if (fscanf(file, "%le %le %le %le %le %le %le %le %le %le\
-                       %le %le %le %le %le %le %le %le %le %le %le %le",
+                       %le %le %le %le %le %le %le %le %le %le %le %le\
+                       %le %le %le %le %le %le %le %le %le %le %le %le\
+                       %le %le %le %le %le %le %le %le %le %le %le %le\
+                       %le %le %le",
                        &atmos.lat[i], &atmos.lon[j], &num, &atmos.alt[k], &atmos.P_3d[i][j][k],
                        &atmos.T_3d[i][j][k], &atmos.vel_ew[i][j][k], &atmos.vel_ns[i][j][k], &atmos.vel_ve[i][j][k],
                        &atmos.aero_sw_tau_1[i][j][k], &atmos.sw_asym_1[i][j][k], &atmos.sw_pi0_1[i][j][k],
                        &atmos.aero_sw_tau_2[i][j][k], &atmos.sw_asym_2[i][j][k], &atmos.sw_pi0_2[i][j][k],
                        &atmos.aero_sw_tau_3[i][j][k], &atmos.sw_asym_3[i][j][k], &atmos.sw_pi0_3[i][j][k],
                        &atmos.aero_sw_tau_4[i][j][k], &atmos.sw_asym_4[i][j][k], &atmos.sw_pi0_4[i][j][k],
+                       &atmos.aero_sw_tau_5[i][j][k], &atmos.sw_asym_5[i][j][k], &atmos.sw_pi0_5[i][j][k],
+                       &atmos.aero_sw_tau_6[i][j][k], &atmos.sw_asym_6[i][j][k], &atmos.sw_pi0_6[i][j][k],
+                       &atmos.aero_sw_tau_7[i][j][k], &atmos.sw_asym_7[i][j][k], &atmos.sw_pi0_7[i][j][k],
+                       &atmos.aero_sw_tau_8[i][j][k], &atmos.sw_asym_8[i][j][k], &atmos.sw_pi0_8[i][j][k],
+                       &atmos.aero_sw_tau_9[i][j][k], &atmos.sw_asym_9[i][j][k], &atmos.sw_pi0_9[i][j][k],
+                       &atmos.aero_sw_tau_10[i][j][k], &atmos.sw_asym_10[i][j][k], &atmos.sw_pi0_10[i][j][k],
+                       &atmos.aero_sw_tau_11[i][j][k], &atmos.sw_asym_11[i][j][k], &atmos.sw_pi0_11[i][j][k],
+                       &atmos.aero_sw_tau_12[i][j][k], &atmos.sw_asym_12[i][j][k], &atmos.sw_pi0_12[i][j][k],
+                       &atmos.aero_sw_tau_13[i][j][k], &atmos.sw_asym_13[i][j][k], &atmos.sw_pi0_13[i][j][k],
                        &atmos.incident_frac[i][j][k]));
             }
 
@@ -201,23 +429,39 @@ void ReadTP_3D()
             
             for(k=NTAU; k<NTAU; k++)
             {
-                if (fscanf(file, "%le %le %le %le %le\
-                                  %le %le %le %le\
-                                  %le %le %le %le\
-                                  %le %le %le %le\
-                                  %le %le %le %le\
+                if (fscanf(file, "%le %le %le\
+                                  %le %le %le\
+                                  %le %le %le\
+                                  %le %le %le\
+                                  %le %le %le\
+                                  %le %le %le\
+                                  %le %le %le\
+                                  %le %le %le\
+                                  %le %le %le\
+                                  %le %le %le\
+                                  %le %le %le\
+                                  %le %le %le\
                                   %le",
-                                 &dum, &dum, &num, &dum, &dum,
-                                 &dum, &dum, &dum, &dum,
-                                 &dum, &dum, &dum, &dum,
-                                 &dum, &dum, &dum, &dum,
-                                 &dum, &dum, &dum, &dum,
+                                 &dum, &dum, &num,
+                                 &dum, &dum, &dum,
+                                 &dum, &dum, &dum,
+                                 &dum, &dum, &dum,
+                                 &dum, &dum, &dum,
+                                 &dum, &dum, &dum,
+                                 &dum, &dum, &dum,
+                                 &dum, &dum, &dum,
+                                 &dum, &dum, &dum,
+                                 &dum, &dum, &dum,
+                                 &dum, &dum, &dum,
+                                 &dum, &dum, &dum,
                                  &dum));
             }
         }
     }
 
-    printf("The first line of Values %le %le %le %le %le %le %le %le %le\n\
+
+
+    printf("Some of the values from the input file %le %le %le %le %le %le %le %le %le\n\
            %le %le %le\n\
            %le %le %le\n\
            %le %le %le\n\

@@ -9,9 +9,11 @@ def run_all_grid(planet_name, phases, inclinations, system_obliquity, NTAU, NLAT
     print ('Running the regridding')
 
     def df_to_txt(file, df):
-        np.savetxt(file, df.values, fmt='%12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E  %12.4E\t')
+        np.savetxt(file, df.values,
+                   fmt=' '.join(['%5.2f']*2 + ['%3d']*1 + ['%9.2E']*6 + ['%9.2E']*39 + ['%5.2f'] + ['\t']))
 
-    planet_file = '../Planets/' + planet_name + '.txt'
+    planet_file = '../Planets/' + planet_name + 'with_clouds.txt'
+
 
     for phase in phases:
         for inc in inclinations:
@@ -21,15 +23,23 @@ def run_all_grid(planet_name, phases, inclinations, system_obliquity, NTAU, NLAT
                              delimiter=r"\s+",
                              names=('lat', 'lon', 'level',
                                     'alt','pres','temp',
-                                    #'temp_std',
                                     'u', 'v', 'w',
                                     'aero_sw_tau_1', 'sw_asym_1', 'sw_pi0_1',
                                     'aero_sw_tau_2', 'sw_asym_2', 'sw_pi0_2',
                                     'aero_sw_tau_3', 'sw_asym_3', 'sw_pi0_3',
-                                    'aero_sw_tau_4', 'sw_asym_4', 'sw_pi0_4'),
+                                    'aero_sw_tau_4', 'sw_asym_4', 'sw_pi0_4',
+                                    'aero_sw_tau_5', 'sw_asym_5', 'sw_pi0_5',
+                                    'aero_sw_tau_6', 'sw_asym_6', 'sw_pi0_6',
+                                    'aero_sw_tau_7', 'sw_asym_7', 'sw_pi0_7',
+                                    'aero_sw_tau_8', 'sw_asym_8', 'sw_pi0_8',
+                                    'aero_sw_tau_9', 'sw_asym_9', 'sw_pi0_9',
+                                    'aero_sw_tau_10', 'sw_asym_10', 'sw_pi0_10',
+                                    'aero_sw_tau_11', 'sw_asym_11', 'sw_pi0_11',
+                                    'aero_sw_tau_12', 'sw_asym_12', 'sw_pi0_12',
+                                    'aero_sw_tau_13', 'sw_asym_13', 'sw_pi0_13'),
                                     dtype={'lat':float,
                                     'lon':float,
-                                    'level':float,
+                                    'level':int,
                                     'alt':float,
                                     'pres':float,
                                     'temp':float,
@@ -48,6 +58,33 @@ def run_all_grid(planet_name, phases, inclinations, system_obliquity, NTAU, NLAT
                                     'aero_sw_tau_4':float,
                                     'sw_asym_4':float,
                                     'sw_pi0_4':float,
+                                    'aero_sw_tau_5':float,
+                                    'sw_asym_5':float,
+                                    'sw_pi0_5':float,
+                                    'aero_sw_tau_6':float,
+                                    'sw_asym_6':float,
+                                    'sw_pi0_6':float,
+                                    'aero_sw_tau_7':float,
+                                    'sw_asym_7':float,
+                                    'sw_pi0_7':float,
+                                    'aero_sw_tau_8':float,
+                                    'sw_asym_8':float,
+                                    'sw_pi0_8':float,
+                                    'aero_sw_tau_9':float,
+                                    'sw_asym_9':float,
+                                    'sw_pi0_9':float,
+                                    'aero_sw_tau_10':float,
+                                    'sw_asym_10':float,
+                                    'sw_pi0_10':float,
+                                    'aero_sw_tau_11':float,
+                                    'sw_asym_11':float,
+                                    'sw_pi0_11':float,
+                                    'aero_sw_tau_12':float,
+                                    'sw_asym_12':float,
+                                    'sw_pi0_12':float,
+                                    'aero_sw_tau_13':float,
+                                    'sw_asym_13':float,
+                                    'sw_pi0_13':float,
                                     'incident_frac': float},
                                     low_memory=False,
                                     index_col='lat')
@@ -87,8 +124,6 @@ def run_all_grid(planet_name, phases, inclinations, system_obliquity, NTAU, NLAT
                 lon = df.lon
                 lat = df.lat
 
-                obs_theta_degree = 180.0 - phase
-                obs_theta = obs_theta_degree * (np.pi / 180.0)
                 obs_theta = 0
 
                 # Convert to radians
@@ -148,6 +183,15 @@ def run_all_grid(planet_name, phases, inclinations, system_obliquity, NTAU, NLAT
                                                    'aero_sw_tau_2', 'sw_asym_2', 'sw_pi0_2',
                                                    'aero_sw_tau_3', 'sw_asym_3', 'sw_pi0_3',
                                                    'aero_sw_tau_4', 'sw_asym_4', 'sw_pi0_4',
+                                                   'aero_sw_tau_5', 'sw_asym_5', 'sw_pi0_5',
+                                                   'aero_sw_tau_6', 'sw_asym_6', 'sw_pi0_6',
+                                                   'aero_sw_tau_7', 'sw_asym_7', 'sw_pi0_7',
+                                                   'aero_sw_tau_8', 'sw_asym_8', 'sw_pi0_8',
+                                                   'aero_sw_tau_9', 'sw_asym_9', 'sw_pi0_9',
+                                                   'aero_sw_tau_10', 'sw_asym_10', 'sw_pi0_10',
+                                                   'aero_sw_tau_11', 'sw_asym_11', 'sw_pi0_11',
+                                                   'aero_sw_tau_12', 'sw_asym_12', 'sw_pi0_12',
+                                                   'aero_sw_tau_13', 'sw_asym_13', 'sw_pi0_13',
                                                    'incident_frac'])
 
 
@@ -159,7 +203,16 @@ def run_all_grid(planet_name, phases, inclinations, system_obliquity, NTAU, NLAT
                               'aero_sw_tau_1', 'sw_asym_1', 'sw_pi0_1',
                               'aero_sw_tau_2', 'sw_asym_2', 'sw_pi0_2',
                               'aero_sw_tau_3', 'sw_asym_3', 'sw_pi0_3',
-                              'aero_sw_tau_4', 'sw_asym_4', 'sw_pi0_4']
+                              'aero_sw_tau_4', 'sw_asym_4', 'sw_pi0_4',
+                              'aero_sw_tau_5', 'sw_asym_5', 'sw_pi0_5',
+                              'aero_sw_tau_6', 'sw_asym_6', 'sw_pi0_6',
+                              'aero_sw_tau_7', 'sw_asym_7', 'sw_pi0_7',
+                              'aero_sw_tau_8', 'sw_asym_8', 'sw_pi0_8',
+                              'aero_sw_tau_9', 'sw_asym_9', 'sw_pi0_9',
+                              'aero_sw_tau_10', 'sw_asym_10', 'sw_pi0_10',
+                              'aero_sw_tau_11', 'sw_asym_11', 'sw_pi0_11',
+                              'aero_sw_tau_12', 'sw_asym_12', 'sw_pi0_12',
+                              'aero_sw_tau_13', 'sw_asym_13', 'sw_pi0_13']
         
                     full_df = df[(df['level'] == level)].reset_index(drop=True)
                     x_full_df = np.array(list(full_df.lon))
@@ -214,10 +267,31 @@ def run_all_grid(planet_name, phases, inclinations, system_obliquity, NTAU, NLAT
                     big_df['aero_sw_tau_3'][big_df['aero_sw_tau_3'] < 0] = 0
                     big_df['aero_sw_tau_4'][big_df['aero_sw_tau_4'] < 0] = 0
 
+                    big_df['aero_sw_tau_5'][big_df['aero_sw_tau_5'] < 0] = 0
+                    big_df['aero_sw_tau_6'][big_df['aero_sw_tau_6'] < 0] = 0
+                    big_df['aero_sw_tau_7'][big_df['aero_sw_tau_7'] < 0] = 0
+                    big_df['aero_sw_tau_8'][big_df['aero_sw_tau_8'] < 0] = 0
+                    big_df['aero_sw_tau_9'][big_df['aero_sw_tau_9'] < 0] = 0
+                    big_df['aero_sw_tau_10'][big_df['aero_sw_tau_10'] < 0] = 0
+                    big_df['aero_sw_tau_11'][big_df['aero_sw_tau_11'] < 0] = 0
+                    big_df['aero_sw_tau_12'][big_df['aero_sw_tau_12'] < 0] = 0
+                    big_df['aero_sw_tau_13'][big_df['aero_sw_tau_13'] < 0] = 0
+
+
                     big_df['sw_asym_1'][big_df['sw_asym_1'] < 0] = 0
                     big_df['sw_asym_2'][big_df['sw_asym_2'] < 0] = 0
                     big_df['sw_asym_3'][big_df['sw_asym_3'] < 0] = 0
                     big_df['sw_asym_4'][big_df['sw_asym_4'] < 0] = 0
+                    big_df['sw_asym_5'][big_df['sw_asym_5'] < 0] = 0
+                    big_df['sw_asym_6'][big_df['sw_asym_6'] < 0] = 0
+                    big_df['sw_asym_7'][big_df['sw_asym_7'] < 0] = 0
+                    big_df['sw_asym_8'][big_df['sw_asym_8'] < 0] = 0
+                    big_df['sw_asym_9'][big_df['sw_asym_9'] < 0] = 0
+                    big_df['sw_asym_10'][big_df['sw_asym_10'] < 0] = 0
+                    big_df['sw_asym_11'][big_df['sw_asym_11'] < 0] = 0
+                    big_df['sw_asym_12'][big_df['sw_asym_12'] < 0] = 0
+                    big_df['sw_asym_13'][big_df['sw_asym_13'] < 0] = 0
+
                     
                     for param in params:
                         big_df[param][full_temp['temp'] < 100] = 0
@@ -245,6 +319,15 @@ def run_all_grid(planet_name, phases, inclinations, system_obliquity, NTAU, NLAT
                                          'aero_sw_tau_2', 'sw_asym_2', 'sw_pi0_2',
                                          'aero_sw_tau_3', 'sw_asym_3', 'sw_pi0_3',
                                          'aero_sw_tau_4', 'sw_asym_4', 'sw_pi0_4',
+                                         'aero_sw_tau_5', 'sw_asym_5', 'sw_pi0_5',
+                                         'aero_sw_tau_6', 'sw_asym_6', 'sw_pi0_6',
+                                         'aero_sw_tau_7', 'sw_asym_7', 'sw_pi0_7',
+                                         'aero_sw_tau_8', 'sw_asym_8', 'sw_pi0_8',
+                                         'aero_sw_tau_9', 'sw_asym_9', 'sw_pi0_9',
+                                         'aero_sw_tau_10', 'sw_asym_10', 'sw_pi0_10',
+                                         'aero_sw_tau_11', 'sw_asym_11', 'sw_pi0_11',
+                                         'aero_sw_tau_12', 'sw_asym_12', 'sw_pi0_12',
+                                         'aero_sw_tau_13', 'sw_asym_13', 'sw_pi0_13',
                                          'incident_frac']]
                 running_df = running_df.sort_values(by=['lat', 'lon', 'level'], axis=0, ascending=[True, True, True])
 
@@ -273,7 +356,15 @@ def run_all_grid(planet_name, phases, inclinations, system_obliquity, NTAU, NLAT
                                          'aero_sw_tau_2', 'sw_asym_2', 'sw_pi0_2',
                                          'aero_sw_tau_3', 'sw_asym_3', 'sw_pi0_3',
                                          'aero_sw_tau_4', 'sw_asym_4', 'sw_pi0_4',
+                                         'aero_sw_tau_5', 'sw_asym_5', 'sw_pi0_5',
+                                         'aero_sw_tau_6', 'sw_asym_6', 'sw_pi0_6',
+                                         'aero_sw_tau_7', 'sw_asym_7', 'sw_pi0_7',
+                                         'aero_sw_tau_8', 'sw_asym_8', 'sw_pi0_8',
+                                         'aero_sw_tau_9', 'sw_asym_9', 'sw_pi0_9',
+                                         'aero_sw_tau_10', 'sw_asym_10', 'sw_pi0_10',
+                                         'aero_sw_tau_11', 'sw_asym_11', 'sw_pi0_11',
+                                         'aero_sw_tau_12', 'sw_asym_12', 'sw_pi0_12',
+                                         'aero_sw_tau_13', 'sw_asym_13', 'sw_pi0_13',
                                          'incident_frac']]
                 df = df.sort_values(by=['lat', 'lon', 'level'], axis=0, ascending=[True, True, True])
-                
                 df_to_txt('../Spectra/DATA/init_' + planet_name + '_phase_{}_inc_{}.txt'.format(phase, inc), df)
